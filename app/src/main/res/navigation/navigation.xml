@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/sleeptracker">
+
+    <fragment
+        android:id="@+id/sleeptracker"
+        android:name="com.example.sleeptrackerapp.sleeptracker.SleepTrackerFragment"
+        android:label="fragment_sleeptracker"
+        tools:layout="@layout/fragment_sleeptracker" >
+        <action
+            android:id="@+id/action_sleeptracker_to_sleepequality"
+            app:destination="@id/sleepequality" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepequality"
+        android:name="com.example.sleeptrackerapp.sleepquality.sleepequality"
+        android:label="fragment_sleepequality"
+        tools:layout="@layout/fragment_sleepequality" />
+</navigation>
