@@ -46,10 +46,10 @@ dependencies {
     // Android KTX
     implementation "androidx.core:core-ktx:$version_core"
 
-    // Room and Lifecycle dependencies
+    // Room 
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    implementation "androidx.room:room-ktx:$version_room"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
@@ -59,7 +59,5 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // Support libraries
-    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
 }

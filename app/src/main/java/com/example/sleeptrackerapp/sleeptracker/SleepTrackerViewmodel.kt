@@ -15,12 +15,14 @@ class SleepTrackerViewmodel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private var tonight = MutableLiveData<SleepNight?>()
-
     private val nights = database.getAllNights()
+
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
+
+    private var tonight = MutableLiveData<SleepNight?>()
+
     init {
         initializeTonight()
     }
@@ -39,53 +41,39 @@ class SleepTrackerViewmodel(
         return night
     }
 
-    private suspend fun clear() {
-        database.clear()
-    }
-
-    private suspend fun update(night: SleepNight) {
-        database.update(night)
+    fun onStartTracking() {
+        viewModelScope.launch {
+            val newNight = SleepNight()
+            insert(newNight)
+            tonight.value = getTonightFromDatabase()
+        }
     }
 
     private suspend fun insert(night: SleepNight) {
         database.insert(night)
     }
 
-    fun onStartTracking() {
-        viewModelScope.launch {
-            // Create a new night, which captures the current time,
-            // and insert it into the database.
-            val newNight = SleepNight()
-
-            insert(newNight)
-
-            tonight.value = getTonightFromDatabase()
-        }
-    }
-
     fun onStopTracking() {
         viewModelScope.launch {
-            // In Kotlin, the return@label syntax is used for specifying which function among
-            // several nested ones this statement returns from.
-            // In this case, we are specifying to return from launch(),
-            // not the lambda.
             val oldNight = tonight.value ?: return@launch
-
-            // Update the night in the database to add the end time.
             oldNight.endTimeMilli = System.currentTimeMillis()
-
             update(oldNight)
         }
     }
 
+    private suspend fun update(night: SleepNight) {
+        database.update(night)
+    }
+
     fun onClear() {
         viewModelScope.launch {
-            // Clear the database table.
             clear()
-
-            // And clear tonight since it's no longer in the database
             tonight.value = null
         }
+    }
+
+    suspend fun clear() {
+        database.clear()
     }
 }
 
