@@ -11,12 +11,20 @@
         android:label="fragment_sleeptracker"
         tools:layout="@layout/fragment_sleeptracker" >
         <action
-            android:id="@+id/action_sleeptracker_to_sleepequality"
-            app:destination="@id/sleepequality" />
+            android:id="@+id/action_sleeptracker_to_sleepQualityFragment"
+            app:destination="@id/sleepQualityFragment" />
     </fragment>
     <fragment
-        android:id="@+id/sleepequality"
-        android:name="com.example.sleeptrackerapp.sleepquality.sleepequality"
-        android:label="fragment_sleepequality"
-        tools:layout="@layout/fragment_sleepequality" />
+        android:id="@+id/sleepQualityFragment"
+        android:name="com.example.sleepequality.sleepequality.SleepQualityFragment"
+        android:label="SleepQualityFragment" >
+        <action
+            android:id="@+id/action_sleepQualityFragment_to_sleeptracker"
+            app:destination="@id/sleeptracker"
+            app:popUpTo="@id/sleeptracker"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="count"
+            app:argType="long" />
+    </fragment>
 </navigation>
