@@ -53,6 +53,8 @@ class SleepTrackerFragment : Fragment() {
                 sleepTrackerViewModel.doneNavigating()
             }
         })
+
+
         return binding.root
     }
 
